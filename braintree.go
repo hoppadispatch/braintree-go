@@ -48,6 +48,14 @@ type Braintree struct {
 	HttpClient  *http.Client
 }
 
+// SetHTTPClient overrides the default HTTP client.
+// This is useful if you're running in a Google AppEngine environment
+// where the http.DefaultClient is not available.
+// eg: g.SetHTTPClient(urlfetch.Client(appengine.NewContext(req)))
+func (g *Braintree) SetHTTPClient(client *http.Client) {
+	g.HttpClient = client
+}
+
 func (g *Braintree) MerchantURL() string {
 	return g.Environment.BaseURL() + "/merchants/" + g.MerchantId
 }
